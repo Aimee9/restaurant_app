@@ -26,6 +26,16 @@ public Cuisine (String cuisine_type) {
     }
   }
 
+  public List<Restaurant> getRestaurants() {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM restaurants WHERE cuisine_id = :cuisine_id";
+      return con.createQuery(sql)
+        .addParameter("cuisine_id", cuisine_id)
+        .executeAndFetch(Restaurant.class);
+    }
+  }
+
+
   @Override
   public boolean equals(Object otherCuisineInstance) {
     if (!(otherCuisineInstance instanceof Cuisine)) {
@@ -39,10 +49,9 @@ public Cuisine (String cuisine_type) {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO cuisine (cuisine_type, cuisine_id) VALUES (:cuisine_type, :cuisine_id)";
+      String sql = "INSERT INTO cuisine (cuisine_type) VALUES (:cuisine_type)";
       this.cuisine_id = (int)con.createQuery(sql, true)
         .addParameter("cuisine_type", cuisine_type)
-        .addParameter("cuisine_id", cuisine_id)
         .executeUpdate()
         .getKey();
     }

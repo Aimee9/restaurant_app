@@ -56,4 +56,23 @@ public class CuisineTest {
     assertEquals("Italian", Cuisine.all().get(0).getCuisineType());
   }
 
+  @Test
+  public void getId_multipleIDsAdded() {
+    Cuisine newCuisine1 = new Cuisine("french");
+    newCuisine1.save();
+    Cuisine newCuisine2 = new Cuisine("mexican");
+    newCuisine2.save();
+    assertEquals(Cuisine.all().get(1).getCuisineId(), newCuisine2.getCuisineId());
+  }
+
+  @Test
+  public void getRestaurants_getsCorrectRestaurants() {
+    Cuisine newCuisine = new Cuisine("french");
+    newCuisine.save();
+    Restaurant newRestaurant = new Restaurant("food place");
+    newRestaurant.save();
+    newRestaurant.addCuisineId(newCuisine.getCuisineId());
+    Restaurant savedRestaurant = newCuisine.getRestaurants().get(0);
+    assertEquals(savedRestaurant, newRestaurant);
+  }
 }

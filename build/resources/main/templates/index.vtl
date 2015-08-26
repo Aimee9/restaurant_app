@@ -1,0 +1,17 @@
+<h1>List Of Cuisines:</h1>
+
+<ul>
+#foreach($cuisine in $cuisines)
+
+  <li><a href="/cuisines/$cuisine.getCuisineId()">$cuisine.getCuisineType()</a></li>
+
+#end
+</ul>
+
+<form action='/' method='post'>
+  <div class='form-group'>
+    <label>add new specialty</label>
+    <input type="text" name="newCuisine" id="newCuisine" class="form-control">
+  </div>
+  <button type="submit" class='btn'>Submit!</button>
+</form>

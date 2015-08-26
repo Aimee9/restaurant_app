@@ -1,38 +1,78 @@
 // import java.util.Random;
-// import java.util.Map;
-// import java.util.HashMap;
-// import spark.ModelAndView;
-// import spark.template.velocity.VelocityTemplateEngine;
-// import static spark.Spark.*;
-//
-//
-// public class App {
-//   public static void main(String[] args){
-//
-//     /* Basic Spark Stuff */
-//
-//     staticFileLocation("/public");
-//     String layout = "templates/layout.vtl"; /*locate layout file */
-//
-//     get("/", (request, response) -> {
-//       Map<String, Object> model = new HashMap<String, Object>();
-//       model.put("template", "templates/form.vtl");
-//       return new ModelAndView(model, "templates/layout.vtl");
-//     }, new VelocityTemplateEngine()); /* Makes homepage "http://localhost:4567/",
-//     will search for file in public/templates/form.vtl*/
-//
-//     get ("/results", (request,response) -> { /*make a results page */
-//       Map<String, Object> model = new HashMap<String,Object>();
-//       model.put("template", "templates/results.vtl");
-//       String stringOfUserInput = request.queryParams("userinput"); /*grabs whatever you typed in as $userinput*/
-//       Integer userInput = Integer.parseInt(stringOfUserInput); /*turns it into an Integer*/
-//       String output = yourMethod(userInput);
-//       model.put("result", output); /*sticks your calculated output where it says "$result" on the /results page*/
-//       return new ModelAndView(model,layout);
-//       }, new VelocityTemplateEngine());
-//
-//
-//   }
-//
-// /*Put Your Methods and Whatnot her*/
-// }
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import spark.ModelAndView;
+import spark.template.velocity.VelocityTemplateEngine;
+import static spark.Spark.*;
+
+public class App {
+  public static void main(String[] args){
+    String layout = "templates/layout.vtl";
+
+    get("/", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+
+      List<Cuisine> cuisines = Cuisine.all();
+
+      model.put("cuisines", cuisines);
+      model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/cuisines", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+
+      Cuisine newCuisine = new Cuisine(request.queryParams("newCuisine"));
+      newCuisine.save();
+      List<Cuisine> cuisines = Cuisine.all();
+      model.put("cuisines", cuisines);
+      model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/cuisines/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+
+      Cuisine deadCuisine = Cuisine.find(Integer.parseInt(request.queryParams("deleteCuisine")));
+      deadCuisine.delete();
+
+      List<Cuisine> cuisines = Cuisine.all();
+      model.put("cuisines", cuisines);
+      model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+
+    get("/cuisines/:cuisine_id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+
+      Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
+      List<Restaurant> restaurants = cuisine.getRestaurants();
+
+      model.put("restaurants", restaurants);
+      model.put("cuisine", cuisine);
+      model.put("template", "templates/cuisine.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/cuisines/:cuisine_id", (request, response) ->{
+      HashMap<String, Object> model = new HashMap<String, Object>();
+
+      Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
+      Restaurant newRestaurant = new Restaurant(request.queryParams("newRestaurant"));
+      newRestaurant.addCuisineId(cuisine.getCuisineId());
+      newRestaurant.save();
+      List<Restaurant> restaurants = cuisine.getRestaurants();
+
+      model.put("cuisine", cuisine);
+      model.put("restaurants", restaurants);
+      model.put("template", "templates/cuisine.vtl");
+      return new ModelAndView(model, layout);
+      }, new VelocityTemplateEngine());
+
+
+
+
+  }
+}

@@ -1,0 +1,24 @@
+<h1> Restaurants with $cuisine.getCuisineType() food</h1>
+
+<ul>
+#foreach($restaurant in $restaurants)
+
+  <li><a href="/cuisines/:cuisine_id/restaurant">$restaurant.getRestName()</a></li>
+
+#end
+</ul>
+
+<form action='/cuisines/$cuisine.getCuisineId()' method='post'>
+  <div class='form-group'>
+    <label>add new restaurant</label>
+    <input type="text" name="newRestaurant" id="newRestaurant" class="form-control">
+  </div>
+  <button type="submit" class='btn'>Submit!</button>
+</form>
+
+<form action ='/cuisines/delete' method = 'post'>
+  <div class = 'form-group'>
+    <input type="hidden" name="deleteCuisine" id="deleteCuisine" value='$cuisine.getCuisineId()' class="form-control">
+  </div>
+  <button type="submit" class='btn'>Delete This Cuisine</button>
+</form>
