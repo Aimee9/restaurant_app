@@ -1,5 +1,7 @@
 <h1>You have selected $restaurant.getRestName()</h1>
 
+<a href='/cuisines/$cuisine.getCuisineId()/$restaurant.getRestId()/UpdateName'>Edit Restaurant Name</a>
+
 
 <form action ='/cuisines/$cuisine.getCuisineId()/delete' method = 'post'>
   <div class = 'form-group'>
@@ -7,3 +9,6 @@
   </div>
   <button type="submit" class='btn'>Delete This Restaurant</button>
 </form>
+
+<a href='/cuisines/$cuisine.getCuisineId()'> Return to List of $cuisine.getCuisineType() restaurants</a>
+<a href='/'>Return to list of cuisines</a>
