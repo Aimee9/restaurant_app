@@ -71,6 +71,33 @@ public class App {
       return new ModelAndView(model, layout);
       }, new VelocityTemplateEngine());
 
+    get("/cuisines/:cuisine_id/:rest_id", (request,response) -> {
+      HashMap<String, Object> model = new HashMap<String,Object>();
+      Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
+      Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":rest_id")));
+
+      model.put("cuisine", cuisine);
+      model.put("restaurant", restaurant);
+      model.put("template", "templates/restaurant.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/cuisines/:cuisine_id/delete", (request,response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+
+      Restaurant deadRest = Restaurant.find(Integer.parseInt(request.queryParams("deleteRest")));
+      deadRest.delete();
+
+      Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
+      List<Restaurant> restaurants = cuisine.getRestaurants();
+
+      model.put("cuisine", cuisine);
+      model.put("restaurants", restaurants);
+      model.put("template", "templates/cuisine.vtl");
+      return new ModelAndView(model, layout);
+
+    }, new VelocityTemplateEngine());
+
 
 
 

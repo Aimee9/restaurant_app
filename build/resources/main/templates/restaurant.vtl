@@ -1,0 +1,9 @@
+<h1>You have selected $restaurant.getRestName()</h1>
+
+
+<form action ='/cuisines/$cuisine.getCuisineId()/delete' method = 'post'>
+  <div class = 'form-group'>
+    <input type="hidden" name="deleteRest" id="deleteRest" value='$restaurant.getRestId()' class="form-control">
+  </div>
+  <button type="submit" class='btn'>Delete This Restaurant</button>
+</form>
