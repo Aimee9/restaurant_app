@@ -50,6 +50,13 @@ public class RestaurantTest{
   }
 
   @Test
+  public void getCuisineId_returnsCorrectCuisineId(){
+    Restaurant newRest = new Restaurant ("food place");
+    newRest.addCuisineId(1);
+    assertEquals(1, newRest.getCuisineId());
+  }
+
+  @Test
   public void update_updatesRestaurantNameInDatabase() {
     Restaurant newRestaurant = new Restaurant("Food Place");
     newRestaurant.save();
@@ -64,4 +71,5 @@ public class RestaurantTest{
     newRestaurant.delete();
     assertEquals(0, Restaurant.all().size());
   }
+
 }
