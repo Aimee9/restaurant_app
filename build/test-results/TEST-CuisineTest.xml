@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CuisineTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2015-08-26T23:48:18" hostname="epicodus-111.local" time="0.117">
+<testsuite name="CuisineTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2015-08-27T17:26:20" hostname="epicodus-111.local" time="0.111">
   <properties/>
-  <testcase name="getRestaurants_getsCorrectRestaurants" classname="CuisineTest" time="0.021"/>
+  <testcase name="getRestaurants_getsCorrectRestaurants" classname="CuisineTest" time="0.022"/>
   <testcase name="update_updatesCuisineCorrectly" classname="CuisineTest" time="0.016"/>
-  <testcase name="find_findsCorrectId" classname="CuisineTest" time="0.013"/>
-  <testcase name="getCuisineType_returnCorrectType" classname="CuisineTest" time="0.004"/>
+  <testcase name="find_findsCorrectId" classname="CuisineTest" time="0.011"/>
+  <testcase name="getCuisineType_returnCorrectType" classname="CuisineTest" time="0.003"/>
   <testcase name="equals_returnTruewithSameNames" classname="CuisineTest" time="0.004"/>
-  <testcase name="getId_multipleIDsAdded" classname="CuisineTest" time="0.017"/>
-  <testcase name="getCuisineId_returnCorrectId" classname="CuisineTest" time="0.013"/>
+  <testcase name="getId_multipleIDsAdded" classname="CuisineTest" time="0.015"/>
+  <testcase name="getCuisineId_returnCorrectId" classname="CuisineTest" time="0.012"/>
   <testcase name="empty_emptyAtFirst" classname="CuisineTest" time="0.009"/>
-  <testcase name="delete_deletesCuisineFromDatabase" classname="CuisineTest" time="0.017"/>
+  <testcase name="delete_deletesCuisineFromDatabase" classname="CuisineTest" time="0.015"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

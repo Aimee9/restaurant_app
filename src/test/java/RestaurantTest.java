@@ -28,11 +28,27 @@ public class RestaurantTest{
   }
 
   @Test
+  public void getPrice_returnsCorrectPrice(){
+    Restaurant newRest = new Restaurant("food place");
+    newRest.addPrice("$");
+    assertEquals("$", newRest.getPrice());
+  }
+
+  @Test
+  public void getHours_returnsCorrectHours(){
+    Restaurant newRest = new Restaurant("food place");
+    newRest.addHours("9:00 am - 9:00 pm");
+    assertEquals("9:00 am - 9:00 pm", newRest.getHours());
+  }
+
+
+  @Test
   public void equals_returnTrueIfNamesAreSame(){
     Restaurant newRest = new Restaurant("food place");
     Restaurant newRest2 = new Restaurant("food place");
     assertEquals(true, newRest.equals(newRest2));
   }
+
 
   @Test
   public void save_returnTrueIfSaved() {
@@ -70,6 +86,15 @@ public class RestaurantTest{
     newRestaurant.save();
     newRestaurant.delete();
     assertEquals(0, Restaurant.all().size());
+  }
+
+  @Test
+  public void save_DoesntOverridePreviousInfo() {
+    Restaurant newRestaurant = new Restaurant("Pop Shop");
+    newRestaurant.save();
+    newRestaurant.addHours("24/7");
+    newRestaurant.save();
+    assertEquals("Pop Shop", newRestaurant.getRestName());
   }
 
 }

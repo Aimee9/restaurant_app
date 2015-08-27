@@ -5,9 +5,13 @@ public class Restaurant{
   private int rest_id;
   private int cuisine_id;
   private String rest_name;
+  private String price;
+  private String hours;
 
   public Restaurant(String rest_name){
     this.rest_name = rest_name;
+    price = null;
+    hours = null;
   }
 
   public int getRestId(){
@@ -20,6 +24,14 @@ public class Restaurant{
 
   public String getRestName(){
     return rest_name;
+  }
+
+  public String getPrice(){
+    return price;
+  }
+
+  public String getHours(){
+    return hours;
   }
 
 
@@ -48,12 +60,36 @@ public class Restaurant{
     }
   }
 
+  public void addPrice(String price){
+    this.price = price;
+    String sql = "UPDATE restaurants SET price = :price WHERE rest_id = :rest_id";
+    try(Connection con = DB.sql2o.open()){
+      con.createQuery(sql)
+        .addParameter("price", price)
+        .addParameter("rest_id", rest_id)
+        .executeUpdate();
+    }
+  }
+
+  public void addHours(String hours){
+    this.hours = hours;
+    String sql = "UPDATE restaurants SET hours = :hours WHERE rest_id = :rest_id";
+    try(Connection con = DB.sql2o.open()){
+      con.createQuery(sql)
+        .addParameter("hours", hours)
+        .addParameter("rest_id", rest_id)
+        .executeUpdate();
+    }
+  }
+
   public void save() {
     try(Connection con = DB.sql2o.open()){
-      String sql = "INSERT INTO restaurants (rest_name, cuisine_id) VALUES (:rest_name, :cuisine_id)";
+      String sql = "INSERT INTO restaurants (rest_name, cuisine_id, price, hours) VALUES (:rest_name, :cuisine_id, :price, :hours)";
       this.rest_id = (int)con.createQuery(sql, true)
         .addParameter("rest_name", rest_name)
         .addParameter("cuisine_id", cuisine_id)
+        .addParameter("price", price)
+        .addParameter("hours", hours)
         .executeUpdate()
         .getKey();
     }
@@ -65,6 +101,25 @@ public class Restaurant{
       return con.createQuery(sql).executeAndFetch(Restaurant.class);
     }
   }
+
+
+  // public static List<Restaurant> findMulti(int cuisine_id) {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT * FROM restaurants where cuisine_id = :cuisine_id";
+  //     List<Restaurant> rest = con.createQuery(sql)
+  //       .addParameter("cuisine_id", cuisine_id)
+  //       .executeAndFetch(Restaurant.class);
+  //     return rest;
+  //   }
+  // }
+
+  // public static boolean hoursAdded(Restaurant restaurant){
+  //   if( restaurant.getHours() == null){
+  //     return true;
+  //   } else {
+  //   return false;
+  //   }
+  // }
 
   public static Restaurant find(int rest_id) {
     try(Connection con = DB.sql2o.open()) {
@@ -86,6 +141,8 @@ public class Restaurant{
         .executeUpdate();
     }
   }
+
+
 
   public void delete(){
     try(Connection con = DB.sql2o.open()){
