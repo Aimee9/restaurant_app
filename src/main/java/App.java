@@ -140,7 +140,9 @@ public class App {
       Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":rest_id")));
       restaurant.addHours(request.queryParams("hours"));
       restaurant.save();
+
       String hours = restaurant.getHours();
+
       Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
       model.put("hours", hours);
       model.put("cuisine", cuisine);
@@ -149,7 +151,31 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/cuisines/:cuisine_id/restaurant/:rest_id/AddPrice", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":rest_id")));
+      Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
+      model.put("cuisine", cuisine);
+      model.put("restaurant", restaurant);
+      model.put("template", "templates/AddPrice.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
+    post("/cuisines/:cuisine_id/restaurant/:rest_id/price", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":rest_id")));
+      restaurant.addPrice(request.queryParams("price"));
+      restaurant.save();
 
-  }
+      String price = restaurant.getPrice();
+
+      Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
+      model.put("price", price);
+      model.put("cuisine", cuisine);
+      model.put("restaurant", restaurant);
+      model.put("template", "templates/restaurant.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+}
+
 }
