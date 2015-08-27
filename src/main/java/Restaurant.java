@@ -142,6 +142,27 @@ public class Restaurant{
     }
   }
 
+  public void updateHours() {
+    //hours = newHours;
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE restaurants SET hours = :hours WHERE rest_id=:rest_id";
+      con.createQuery(sql)
+        .addParameter("hours", hours)
+        .addParameter("rest_id", rest_id)
+        .executeUpdate();
+    }
+  }
+
+  public void updatePrice() {
+  //  price = newPrice;
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE restaurants SET price = :price WHERE rest_id=:rest_id";
+      con.createQuery(sql)
+        .addParameter("price", price)
+        .addParameter("rest_id", rest_id)
+        .executeUpdate();
+    }
+  }
 
 
   public void delete(){

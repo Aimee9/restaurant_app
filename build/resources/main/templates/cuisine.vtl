@@ -13,14 +13,14 @@
     <label>add new restaurant</label>
     <input type="text" name="newRestaurant" id="newRestaurant" class="form-control">
   </div>
-  <button type="submit" class='btn'>Submit!</button>
+  <button type="submit" class='btn btn-info'>Submit!</button>
 </form>
 
 <form action ='/cuisines/delete' method = 'post'>
   <div class = 'form-group'>
     <input type="hidden" name="deleteCuisine" id="deleteCuisine" value='$cuisine.getCuisineId()' class="form-control">
   </div>
-  <button type="submit" class='btn'>Delete This Cuisine</button>
+  <button type="submit" class='btn btn-danger'>Delete This Cuisine</button>
 </form>
 
 <a href='/'>Return to list of cuisines</a>

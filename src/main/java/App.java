@@ -79,7 +79,11 @@ public class App {
       HashMap<String, Object> model = new HashMap<String,Object>();
       Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
       Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":rest_id")));
+      String price = restaurant.getPrice();
+      String hours = restaurant.getHours();
 
+      model.put("hours", hours);
+      model.put("price", price);
       model.put("cuisine", cuisine);
       model.put("restaurant", restaurant);
       model.put("template", "templates/restaurant.vtl");
@@ -92,6 +96,12 @@ public class App {
       Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
       Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":rest_id")));
       restaurant.update(request.queryParams("updatedName"));
+
+      // String hours = restaurant.getHours();
+      // String price = restaurant.getPrice();
+      //
+      // model.put("hours", hours);
+      // model.put("price", price);
       model.put("cuisine", cuisine);
       model.put("restaurant", restaurant);
       model.put("template", "templates/restaurant.vtl");
@@ -139,11 +149,13 @@ public class App {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":rest_id")));
       restaurant.addHours(request.queryParams("hours"));
-      restaurant.save();
-
+      restaurant.updateHours();
+      //
       String hours = restaurant.getHours();
-
+      String price = restaurant.getPrice();
       Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
+      
+      model.put("price", price);
       model.put("hours", hours);
       model.put("cuisine", cuisine);
       model.put("restaurant", restaurant);
@@ -155,7 +167,9 @@ public class App {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":rest_id")));
       Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
+      String hours = restaurant.getHours();
       model.put("cuisine", cuisine);
+      model.put("hours", hours);
       model.put("restaurant", restaurant);
       model.put("template", "templates/AddPrice.vtl");
       return new ModelAndView(model, layout);
@@ -165,11 +179,13 @@ public class App {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":rest_id")));
       restaurant.addPrice(request.queryParams("price"));
-      restaurant.save();
+      restaurant.updatePrice();
 
+      String hours = restaurant.getHours();
       String price = restaurant.getPrice();
 
       Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
+      model.put("hours", hours);
       model.put("price", price);
       model.put("cuisine", cuisine);
       model.put("restaurant", restaurant);

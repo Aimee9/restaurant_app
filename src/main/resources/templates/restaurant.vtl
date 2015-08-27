@@ -11,6 +11,7 @@
   Hours are: $hours
 #end
 
+<br>
 
 #if(!$price)
   price not saved
@@ -23,9 +24,12 @@
   <div class = 'form-group'>
     <input type="hidden" name="deleteRest" id="deleteRest" value='$restaurant.getRestId()' class="form-control">
   </div>
-  <button type="submit" class='btn'>Delete This Restaurant</button>
+  <button type="submit" class='btn btn-danger'>Delete This Restaurant</button>
 </form>
 
 
 <a href='/cuisines/$cuisine.getCuisineId()'> Return to List of $cuisine.getCuisineType() Restaurants</a>
+
+<br>
+
 <a href='/'>Return to List of Cuisines</a>
