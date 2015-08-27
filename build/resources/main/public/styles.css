@@ -1,0 +1,31 @@
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-family: sans-serif;
+}
+
+ul {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.header{
+  display: block;
+  background: red;
+  margin: 0%;
+  buffer: 0%;
+  min-width: 100%;
+}
+
+.lists{
+  margin-top: 5%;
+}
+
+.buttons{
+  margin-top:10%;
+  float: left;
+  margin: 10px;
+}

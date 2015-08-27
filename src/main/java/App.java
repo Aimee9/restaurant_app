@@ -8,6 +8,7 @@ import static spark.Spark.*;
 
 public class App {
   public static void main(String[] args){
+    staticFileLocation("/public");
     String layout = "templates/layout.vtl";
 
     get("/", (request, response) -> {
@@ -154,7 +155,7 @@ public class App {
       String hours = restaurant.getHours();
       String price = restaurant.getPrice();
       Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
-      
+
       model.put("price", price);
       model.put("hours", hours);
       model.put("cuisine", cuisine);

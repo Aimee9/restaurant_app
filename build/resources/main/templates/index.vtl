@@ -1,5 +1,10 @@
-<h1>List Of Cuisines:</h1>
 
+<div class='header'>
+    <h1>List of cuisines</h1>
+</div>
+
+
+<div class="lists">
 <ul>
 #foreach($cuisine in $cuisines)
 
@@ -7,11 +12,14 @@
 
 #end
 </ul>
+</div>
 
+<div class="buttons">
 <form action='/cuisines' method='post'>
   <div class='form-group'>
-    <label>add new cuisine</label>
+    <label>Add New Cuisine</label>
     <input type="text" name="newCuisine" id="newCuisine" class="form-control">
   </div>
   <button type="submit" class='btn btn-info'>Submit!</button>
 </form>
+</div>
